@@ -4,3 +4,4 @@ fractol
 *.swo
 .DS_Store
 *.pdf
+mlx/
