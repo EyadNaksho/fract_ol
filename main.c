@@ -41,11 +41,16 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data.fractal_type = argv[1];
+	data.min_re = -2.0;
+	data.max_re = 1.0;
+	data.min_im = -1.5;
+	data.max_im = 1.5;
 	if (!init_fractal(&data))
 	{
 		write(2, "Error: Failed to initialize fractal\n", 37);
 		return (1);
 	}
+	render_fractal(&data);
 	mlx_loop(data.mlx);
 	return (0);
 }

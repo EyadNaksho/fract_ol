@@ -35,6 +35,10 @@ typedef struct s_data
 	void	*win;
 	t_img	img;
 	char	*fractal_type;
+	double	min_re;
+	double	max_re;
+	double	min_im;
+	double	max_im;
 }	t_data;
 
 void	print_usage(void);
@@ -45,5 +49,8 @@ int		handle_keypress(int keycode, t_data *data);
 t_complex	complex_add(t_complex a, t_complex b);
 t_complex	complex_multiply(t_complex a, t_complex b);
 double		complex_abs(t_complex c);
+void		render_fractal(t_data *data);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			get_color(int iter, int max_iter);
 
 #endif
