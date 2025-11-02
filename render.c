@@ -44,6 +44,23 @@ int	mandelbrot_iter(t_complex c)
 	return (iter);
 }
 
+int	julia_iter(t_complex z, t_complex c)
+{
+	t_complex	temp;
+	int			iter;
+
+	iter = 0;
+	while (iter < MAX_ITER)
+	{
+		if (complex_abs(z) > 2.0)
+			break ;
+		temp = complex_multiply(z, z);
+		z = complex_add(temp, c);
+		iter++;
+	}
+	return (iter);
+}
+
 void	render_fractal(t_data *data)
 {
 	int			x;
@@ -60,7 +77,10 @@ void	render_fractal(t_data *data)
 		{
 			c.real = data->min_re + (double)x * (data->max_re - data->min_re) / WIDTH;
 			c.imag = data->min_im + (double)y * (data->max_im - data->min_im) / HEIGHT;
-			iter = mandelbrot_iter(c);
+			if (is_julia(data->fractal_type))
+				iter = julia_iter(c, data->julia_c);
+			else
+				iter = mandelbrot_iter(c);
 			color = get_color(iter, MAX_ITER);
 			my_mlx_pixel_put(&data->img, x, y, color);
 			x++;

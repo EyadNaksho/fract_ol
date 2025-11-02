@@ -31,14 +31,15 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	t_img	img;
-	char	*fractal_type;
-	double	min_re;
-	double	max_re;
-	double	min_im;
-	double	max_im;
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	char		*fractal_type;
+	double		min_re;
+	double		max_re;
+	double		min_im;
+	double		max_im;
+	t_complex	julia_c;
 }	t_data;
 
 void	print_usage(void);
@@ -52,5 +53,7 @@ double		complex_abs(t_complex c);
 void		render_fractal(t_data *data);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			get_color(int iter, int max_iter);
+double		ft_atof(char *str);
+int			is_julia(char *str);
 
 #endif
