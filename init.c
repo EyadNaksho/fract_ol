@@ -30,8 +30,6 @@ int	handle_mouse(int button, int x, int y, t_data *data)
 	double	range_re;
 	double	range_im;
 
-	(void)x;
-	(void)y;
 	if (button == MOUSE_SCROLL_UP)
 		zoom_factor = 0.9;
 	else if (button == MOUSE_SCROLL_DOWN)
@@ -40,12 +38,12 @@ int	handle_mouse(int button, int x, int y, t_data *data)
 		return (0);
 	range_re = data->max_re - data->min_re;
 	range_im = data->max_im - data->min_im;
-	mouse_re = data->min_re + range_re / 2;
-	mouse_im = data->min_im + range_im / 2;
-	data->min_re = mouse_re - (range_re * zoom_factor / 2);
-	data->max_re = mouse_re + (range_re * zoom_factor / 2);
-	data->min_im = mouse_im - (range_im * zoom_factor / 2);
-	data->max_im = mouse_im + (range_im * zoom_factor / 2);
+	mouse_re = data->min_re + (double)x * range_re / WIDTH;
+	mouse_im = data->min_im + (double)y * range_im / HEIGHT;
+	data->min_re = mouse_re + (data->min_re - mouse_re) * zoom_factor;
+	data->max_re = mouse_re + (data->max_re - mouse_re) * zoom_factor;
+	data->min_im = mouse_im + (data->min_im - mouse_im) * zoom_factor;
+	data->max_im = mouse_im + (data->max_im - mouse_im) * zoom_factor;
 	render_fractal(data);
 	return (0);
 }
