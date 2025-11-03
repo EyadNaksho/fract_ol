@@ -22,6 +22,34 @@ int	handle_keypress(int keycode, t_data *data)
 	return (0);
 }
 
+int	handle_mouse(int button, int x, int y, t_data *data)
+{
+	double	zoom_factor;
+	double	mouse_re;
+	double	mouse_im;
+	double	range_re;
+	double	range_im;
+
+	(void)x;
+	(void)y;
+	if (button == MOUSE_SCROLL_UP)
+		zoom_factor = 0.9;
+	else if (button == MOUSE_SCROLL_DOWN)
+		zoom_factor = 1.1;
+	else
+		return (0);
+	range_re = data->max_re - data->min_re;
+	range_im = data->max_im - data->min_im;
+	mouse_re = data->min_re + range_re / 2;
+	mouse_im = data->min_im + range_im / 2;
+	data->min_re = mouse_re - (range_re * zoom_factor / 2);
+	data->max_re = mouse_re + (range_re * zoom_factor / 2);
+	data->min_im = mouse_im - (range_im * zoom_factor / 2);
+	data->max_im = mouse_im + (range_im * zoom_factor / 2);
+	render_fractal(data);
+	return (0);
+}
+
 int	init_fractal(t_data *data)
 {
 	data->mlx = mlx_init();
@@ -39,5 +67,6 @@ int	init_fractal(t_data *data)
 			&data->img.endian);
 	mlx_hook(data->win, DESTROY_NOTIFY, 0, close_window, data);
 	mlx_key_hook(data->win, handle_keypress, data);
+	mlx_mouse_hook(data->win, handle_mouse, data);
 	return (1);
 }

@@ -12,6 +12,9 @@
 # define ESC_KEY 65307
 # define DESTROY_NOTIFY 17
 
+# define MOUSE_SCROLL_UP 4
+# define MOUSE_SCROLL_DOWN 5
+
 # define MAX_ITER 100
 
 typedef struct s_complex
@@ -47,6 +50,7 @@ int		validate_args(int argc, char **argv);
 int		init_fractal(t_data *data);
 int		close_window(t_data *data);
 int		handle_keypress(int keycode, t_data *data);
+int		handle_mouse(int button, int x, int y, t_data *data);
 t_complex	complex_add(t_complex a, t_complex b);
 t_complex	complex_multiply(t_complex a, t_complex b);
 double		complex_abs(t_complex c);
