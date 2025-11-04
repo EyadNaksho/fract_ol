@@ -50,9 +50,12 @@ void	print_usage(void)
 	write(1, "\nAvailable fractals:\n", 21);
 	write(1, "  mandelbrot\n", 14);
 	write(1, "  julia <real> <imaginary>\n", 28);
+	write(1, "  julia (uses default: -0.7 + 0.27015i)\n", 41);
 	write(1, "\nJulia examples:\n", 18);
+	write(1, "  ./fractol julia\n", 18);
 	write(1, "  ./fractol julia -0.7 0.27015\n", 32);
 	write(1, "  ./fractol julia 0.285 0.01\n", 30);
+	write(1, "  ./fractol julia -0.4 0.6\n", 28);
 }
 
 int	validate_args(int argc, char **argv)
@@ -70,7 +73,7 @@ int	validate_args(int argc, char **argv)
 		return (1);
 	if (is_julia(argv[1]))
 	{
-		if (argc == 4)
+		if (argc == 2 || argc == 4)
 			return (1);
 		return (0);
 	}
@@ -93,8 +96,16 @@ int	main(int argc, char **argv)
 	data.max_im = 2.0;
 	if (is_julia(argv[1]))
 	{
-		data.julia_c.real = ft_atof(argv[2]);
-		data.julia_c.imag = ft_atof(argv[3]);
+		if (argc == 4)
+		{
+			data.julia_c.real = ft_atof(argv[2]);
+			data.julia_c.imag = ft_atof(argv[3]);
+		}
+		else
+		{
+			data.julia_c.real = -0.7;
+			data.julia_c.imag = 0.27015;
+		}
 	}
 	if (!init_fractal(&data))
 	{

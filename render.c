@@ -21,12 +21,6 @@ int	get_color(int iter, int max_iter)
 	r = (int)(9 * (1 - t) * t * t * t * 255);
 	g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
 	b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-	if (iter < max_iter / 4)
-	{
-		r = (int)(255 * sin(0.016 * iter + 4) * sin(0.013 * iter + 2) + 127);
-		g = (int)(255 * sin(0.013 * iter + 2) * sin(0.01 * iter) + 127);
-		b = (int)(255 * sin(0.01 * iter) * sin(0.016 * iter + 4) + 127);
-	}
 	return ((r << 16) | (g << 8) | b);
 }
 
