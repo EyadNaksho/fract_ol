@@ -29,16 +29,21 @@ int	mandelbrot_iter(t_complex c)
 	t_complex	z;
 	t_complex	temp;
 	int			iter;
+	double		z_real_sq;
+	double		z_imag_sq;
 
 	z.real = 0;
 	z.imag = 0;
 	iter = 0;
 	while (iter < MAX_ITER)
 	{
-		if (complex_abs(z) > 2.0)
+		z_real_sq = z.real * z.real;
+		z_imag_sq = z.imag * z.imag;
+		if (z_real_sq + z_imag_sq > 4.0)
 			break ;
-		temp = complex_multiply(z, z);
-		z = complex_add(temp, c);
+		temp.real = z_real_sq - z_imag_sq + c.real;
+		temp.imag = 2.0 * z.real * z.imag + c.imag;
+		z = temp;
 		iter++;
 	}
 	return (iter);
@@ -48,14 +53,19 @@ int	julia_iter(t_complex z, t_complex c)
 {
 	t_complex	temp;
 	int			iter;
+	double		z_real_sq;
+	double		z_imag_sq;
 
 	iter = 0;
 	while (iter < MAX_ITER)
 	{
-		if (complex_abs(z) > 2.0)
+		z_real_sq = z.real * z.real;
+		z_imag_sq = z.imag * z.imag;
+		if (z_real_sq + z_imag_sq > 4.0)
 			break ;
-		temp = complex_multiply(z, z);
-		z = complex_add(temp, c);
+		temp.real = z_real_sq - z_imag_sq + c.real;
+		temp.imag = 2.0 * z.real * z.imag + c.imag;
+		z = temp;
 		iter++;
 	}
 	return (iter);
