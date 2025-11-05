@@ -59,5 +59,6 @@ void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			get_color(int iter, int max_iter);
 double		ft_atof(char *str);
 int			is_julia(char *str);
+int			is_valid_number(char *str);
 
 #endif

@@ -52,13 +52,27 @@ int	init_fractal(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
+	{
+		write(2, "Error: Failed to initialize MLX\n", 33);
 		return (0);
+	}
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "fract'ol");
 	if (!data->win)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		write(2, "Error: Failed to create window\n", 32);
 		return (0);
+	}
 	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->img.img)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		write(2, "Error: Failed to create image\n", 31);
 		return (0);
+	}
 	data->img.addr = mlx_get_data_addr(data->img.img,
 			&data->img.bits_per_pixel,
 			&data->img.line_length,

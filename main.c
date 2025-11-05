@@ -14,6 +14,34 @@ int	is_julia(char *str)
 	return (0);
 }
 
+int	is_valid_number(char *str)
+{
+	int	i;
+	int	has_digit;
+	int	has_dot;
+
+	i = 0;
+	has_digit = 0;
+	has_dot = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			if (has_dot)
+				return (0);
+			has_dot = 1;
+		}
+		else if (str[i] >= '0' && str[i] <= '9')
+			has_digit = 1;
+		else
+			return (0);
+		i++;
+	}
+	return (has_digit);
+}
+
 double	ft_atof(char *str)
 {
 	double	result;
@@ -24,9 +52,10 @@ double	ft_atof(char *str)
 	result = 0.0;
 	sign = 1;
 	i = 0;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
-		sign = -1;
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
@@ -74,7 +103,14 @@ int	validate_args(int argc, char **argv)
 	if (is_julia(argv[1]))
 	{
 		if (argc == 2 || argc == 4)
+		{
+			if (argc == 4)
+			{
+				if (!is_valid_number(argv[2]) || !is_valid_number(argv[3]))
+					return (0);
+			}
 			return (1);
+		}
 		return (0);
 	}
 	return (0);
