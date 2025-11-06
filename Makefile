@@ -7,7 +7,7 @@ MLX_DIR = mlx
 MLX_LIB = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-SRCS = main.c init.c complex.c render.c
+SRCS = main.c init.c complex.c render.c utils.c parser.c color.c
 
 OBJS = $(SRCS:.c=.o)
 
